@@ -36,7 +36,7 @@ function saveMessageIntoDB(username, message, emote) {
 // is in the database or not. Uses current UTC 
 // time as the timestamp.
 function insertMessage(username, message, emote) {
-    var timestamp = String(new Date().getTime());
+    var timestamp = String(new Date().getTime() / 1000);
     knex.raw('INSERT INTO message VALUES(DEFAULT, ?, ?, ?, to_timestamp(?))', [username, message, emote, timestamp]).then(function(newMessage) {
         console.log('DB < ' + username + ': ' + message);
     });
