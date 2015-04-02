@@ -18,7 +18,7 @@ client.addListener('chat', function(channel, user, message) {
 
     if (message = '!MyDongerSize') {
         Model.getDongerSize(user.username, function(dongerSize) {
-            client.say(user.username + '\'s donger size is ' + dongerSize + ' inches.');
+            client.say(config.channels[0], user.username + '\'s donger size is ' + dongerSize + ' inches.');
         });
     }
 });
