@@ -13,12 +13,25 @@ var client = new irc.client({
 client.connect();
 console.log("Connected to channel " + config.channels + ".");
 
+function getCurrTimeSecs() {
+    return new Date().getTime() / 1000;
+}
+
+var lastSayTime = getCurrTimeSecs();
+
+// Seconds before posting on chat again
+var sayInterval = 3;
+
 client.addListener('chat', function(channel, user, message) {
     Model.saveMessageIntoDB(user.username, message, user.emote);
+    elapsedTime = getCurrTimeSecs() - lastSayTime;
 
-    if (message === '!MyDongerSize') {
-        Model.getDongerSize(user.username, function(dongerSize) {
-            client.say(config.channels[0], user.username + '\'s donger size is ' + dongerSize + ' inches.');
-        });
+    if (elapsedTime >= sayInterval) {
+        if (message === '!MyDongerSize') {
+            Model.getDongerSize(user.username, function(dongerSize) {
+                client.say(config.channels[0], user.username + '\'s donger size is ' + dongerSize + ' inches.');
+                lastSayTime = getCurrTimeSecs();
+            });
+        }
     }
 });
