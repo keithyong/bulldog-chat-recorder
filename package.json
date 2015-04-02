@@ -1,0 +1,18 @@
+{
+  "name": "admiral-bulldog-chat-recorder",
+  "version": "1.0.0",
+  "description": "Records AdmiralBulldog's twitch chat",
+  "main": "app.js",
+  "dependencies": {
+    "bookshelf": "^0.7.9",
+    "knex": "^0.7.6",
+    "pg": "^4.3.0",
+    "twitch-irc": "^1.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
