@@ -15,4 +15,10 @@ console.log("Connected to channel " + config.channels + ".");
 
 client.addListener('chat', function(channel, user, message) {
     Model.saveMessageIntoDB(user.username, message, user.emote);
+
+    if (message = '!MyDongerSize') {
+        Model.getDongerSize(user.username, function(dongerSize) {
+            client.say(user.username + '\'s donger size is ' + dongerSize + ' inches.');
+        });
+    }
 });

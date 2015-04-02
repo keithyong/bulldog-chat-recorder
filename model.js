@@ -29,6 +29,14 @@ function saveMessageIntoDB(username, message, emote) {
     });
 }
 
+function getDongerSize(username, callback) {
+    knex('message').select().count('msg').where('username', '=', username).then(function(result) {
+        var count = result[0].count;
+        var dongerSize = count / 10;
+        callback(dongerSize);
+    });
+}
+
 // ------------------------------
 // insertMessage
 // ------------------------------
@@ -37,9 +45,7 @@ function saveMessageIntoDB(username, message, emote) {
 // time as the timestamp.
 function insertMessage(username, message, emote) {
     var timestamp = String(new Date().getTime() / 1000);
-    knex.raw('INSERT INTO message VALUES(DEFAULT, ?, ?, ?, to_timestamp(?))', [username, message, emote, timestamp]).then(function(newMessage) {
-        console.log('DB < ' + username + ': ' + message);
-    });
+    knex.raw('INSERT INTO message VALUES(DEFAULT, ?, ?, ?, to_timestamp(?))', [username, message, emote, timestamp]).then(function(newMessage) {});
 }
 
 var DB = require('bookshelf')(knex);
@@ -55,6 +61,7 @@ var Message = DB.Model.extend({
 });
 
 module.exports = {
+    getDongerSize: getDongerSize,
     saveMessageIntoDB: saveMessageIntoDB,
     User: User,
     Message: Message
